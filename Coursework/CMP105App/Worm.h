@@ -9,9 +9,23 @@ public:
 
 	void update(float dt);
 
+	float getTimer();
+	void setTimer(float time);
+
+	float getTimerLength();
+	void setTimerLength(float time);
+	
+
 private:
 
 	Animation m_wiggleRight;
 
+	Animation* m_currentAnimation;
+
+	float m_speed;
+	float m_wormHeight;
+
+	float m_levelTimer;
+	float m_levelTimerLength;
 };
 

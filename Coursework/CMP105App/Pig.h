@@ -1,18 +1,27 @@
 #pragma once
 #include "Framework/Animation.h"
 #include "Framework/GameObject.h"
-class Sheep : public GameObject
+class Pig : public GameObject
 {
 public:
-	Sheep();
-	virtual ~Sheep() = default;
+
+	Pig();
+	virtual ~Pig() = default;
 
 	void update(float dt);
-	void handleInput(float dt);
 
-	void resetPosition();
+	float getTimer();
+	void setTimer(float time);
+
+	float getTimerLength();
+	void setTimerLength(float time);
+
+	GameObject getTarget();
+	void setTarget(GameObject target);
 
 private:
+
+	GameObject m_target;
 
 	Animation m_walkDown;
 	Animation m_walkDownRight;
@@ -21,14 +30,17 @@ private:
 	Animation m_walkRight;
 
 	Animation* m_currentAnimation;
-	//sheep member variables here
+
+	//Member Variables
+
+	sf::Vector2f m_targetPos;
+
+	int m_targetAngleIndex;
 
 	enum class Direction { UP, DOWN, LEFT, RIGHT, UP_RIGHT, DOWN_RIGHT, DOWN_LEFT, UP_LEFT, NONE };
 	Direction m_direction = Direction::NONE;
-	float m_speed = 300.0f;
-	float m_inputBuffer = 0.f;
+	float m_speed = 200.0f;
 
-	const float INPUT_BUFFER_LENGTH = 0.1f;
+	const float APPROX_PI = 3.14159265f;
 	const float APPROX_ONE_OVER_ROOT_TWO = 0.70710678f;	// 1 / sqrt(2)
 };
-

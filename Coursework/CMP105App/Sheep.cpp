@@ -36,6 +36,8 @@ Sheep::Sheep()
 	m_walkDownRight.setFrameSpeed(1.f / 4.f);
 
 	setTextureRect(m_currentAnimation->getCurrentFrame());
+
+	resetPosition();
 }
 
 void Sheep::update(float dt)
@@ -147,4 +149,10 @@ void Sheep::handleInput(float dt)
 	// set input buffer if needed, this makes diagonal movement easier
 	if (m_direction != last_dir)
 		m_inputBuffer = INPUT_BUFFER_LENGTH;
+}
+
+void Sheep::resetPosition()
+{
+	//setPosition({ m_window->getSize().x / 2.f, m_window->getSize().y / 2.f }); Doesn't work because m_window->getSize() is nullptr
+	setPosition({ 800 / 2.f, 600 / 2.f });
 }
