@@ -5,6 +5,7 @@
 #include "Sheep.h"
 #include "Worm.h"
 #include "Pig.h"
+#include "Rabbit.h"
 
 class Level : BaseLevel {
 public:
@@ -31,4 +32,7 @@ private:
 
 	Pig m_pigEnemy;
 	sf::Texture m_pigTexture;
+
+	Rabbit m_rabbit;
+	sf::Texture m_rabbitTexture;
 };

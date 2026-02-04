@@ -14,7 +14,8 @@ public:
 
 	float getTimerLength();
 	void setTimerLength(float time);
-	
+
+	void setKnownScreenSize(sf::Vector2u screenSize);
 
 private:
 
@@ -22,7 +23,8 @@ private:
 
 	Animation* m_currentAnimation;
 
-	float m_speed;
+	sf::Vector2u m_knownScreenSize;
+
 	float m_wormHeight;
 
 	float m_levelTimer;

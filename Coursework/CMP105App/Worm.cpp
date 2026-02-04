@@ -1,11 +1,11 @@
 #include "Worm.h"
+#include <iostream>
 
 Worm::Worm()
 {
 	m_levelTimerLength = 15;
 	m_levelTimer = m_levelTimerLength;
 
-	m_speed = 800 / 15; //screen width / time to cross screen
 	m_wormHeight = 50;
 
 	for (int i = 0; i < 6; i++)
@@ -18,7 +18,6 @@ Worm::Worm()
 	m_currentAnimation->setFlipped(false);
 
 	setTextureRect(m_currentAnimation->getCurrentFrame());
-	setPosition({ 0, /*m_window->getSize().y nullptrs*/600 - m_wormHeight});
 }
 
 void Worm::update(float dt)
@@ -26,10 +25,12 @@ void Worm::update(float dt)
 	m_currentAnimation->animate(dt);
 	setTextureRect(m_currentAnimation->getCurrentFrame());
 
-	float wormYPos = /*m_window->getSize().y nullptrs*/600 - m_wormHeight;
-	float orthog_speed = m_speed * dt;	// orthogonal movement
+	float wormYPos = m_knownScreenSize.y - m_wormHeight;
+	float wormXPos = ((m_levelTimerLength - m_levelTimer) / m_levelTimerLength) * m_knownScreenSize.x;
 
-	setPosition({getPosition().x + orthog_speed, wormYPos });
+	setPosition({wormXPos, wormYPos }); 
+	//the worm's position is determined by the dividing the time remaining by the total time, and mulitplying by the screen width
+	
 	m_currentAnimation = &m_wiggleRight;
 	m_currentAnimation->setFlipped(false);
 
@@ -54,4 +55,9 @@ float Worm::getTimerLength()
 void Worm::setTimerLength(float time)
 {
 	m_levelTimerLength = time;
+}
+
+void Worm::setKnownScreenSize(sf::Vector2u screenSize)
+{
+	m_knownScreenSize = screenSize;
 }

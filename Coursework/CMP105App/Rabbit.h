@@ -1,29 +1,20 @@
 #pragma once
 #include "Framework/Animation.h"
 #include "Framework/GameObject.h"
-class Pig : public GameObject
+class Rabbit :
+    public GameObject
 {
 public:
-
-	Pig();
-	virtual ~Pig() = default;
+	Rabbit();
+	virtual ~Rabbit() = default;
 
 	void update(float dt);
 
-	float getTimer();
-	void setTimer(float time);
 
-	float getTimerLength();
-	void setTimerLength(float time);
-
-	GameObject getTarget();
-	void setTarget(GameObject target);
-
+	void setPlayer(GameObject player);
 	void setKnownScreenSize(sf::Vector2u screenSize);
 
 private:
-
-	GameObject m_target;
 
 	Animation m_walkDown;
 	Animation m_walkDownRight;
@@ -35,16 +26,23 @@ private:
 
 	//Member Variables
 
+	GameObject m_player;
+
 	sf::Vector2u m_knownScreenSize;
 
-	sf::Vector2f m_targetPos;
+	sf::Vector2f m_playerPos;
 
-	int m_targetAngleIndex;
+	int m_playerAngleIndex;
 
 	//enum class Direction { UP, DOWN, LEFT, RIGHT, UP_RIGHT, DOWN_RIGHT, DOWN_LEFT, UP_LEFT, NONE };
 	//Direction m_direction = Direction::NONE;
 	float m_speed = 200.0f;
 
+	float m_personalSpace;
+
+	bool m_isScared;
+
 	const float APPROX_PI = 3.14159265f;
 	const float APPROX_ONE_OVER_ROOT_TWO = 0.70710678f;	// 1 / sqrt(2)
 };
+

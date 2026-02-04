@@ -10,7 +10,7 @@ Pig::Pig()
 	m_currentAnimation = &m_walkDown;
 	m_walkDown.setLooping(true);
 	m_walkDown.setFrameSpeed(1.f / 4.f);
-	m_currentAnimation->setFlipped(false);
+	//m_currentAnimation->setFlipped(false);
 	for (int i = 5; i < 8; i++)
 	{
 		Pig::m_walkUp.addFrame(sf::IntRect({ i * 64, 0 }, { 64, 64 }));
@@ -52,9 +52,9 @@ void Pig::update(float dt)
 
 	//std::cout << m_targetPos.x << " , " << m_targetPos.y << " : " << m_targetAngle << std::endl;
 
-	m_targetAngleIndex = (m_targetAngle / APPROX_PI) * 5;
+	m_targetAngleIndex = (m_targetAngle / APPROX_PI) * 5; //approximates an index that allows a switch case to read the direction
 
-	std::cout << m_targetAngleIndex << std::endl;
+	//std::cout << m_targetAngleIndex << std::endl;
 
 	// for diagonal movement
 	float diagonal_speed = m_speed * APPROX_ONE_OVER_ROOT_TWO * dt;
@@ -62,12 +62,22 @@ void Pig::update(float dt)
 
 	switch (m_targetAngleIndex)
 	{
-	case 6:
+	case -4:
+		move({ -orthog_speed,0 });
+		m_currentAnimation = &m_walkRight;
+		m_currentAnimation->setFlipped(true);
+		break;
+	case -3:
+		move({ -diagonal_speed, -diagonal_speed });
+		m_currentAnimation = &m_walkUpRight;
+		m_currentAnimation->setFlipped(true);
+		break;
+	case -2:
 		move({ 0, -orthog_speed });
 		m_currentAnimation = &m_walkUp;
 		m_currentAnimation->setFlipped(false);
 		break;
-	case 7:
+	case -1:
 		move({ diagonal_speed, -diagonal_speed });
 		m_currentAnimation = &m_walkUpRight;
 		m_currentAnimation->setFlipped(false);
@@ -97,11 +107,6 @@ void Pig::update(float dt)
 		m_currentAnimation = &m_walkRight;
 		m_currentAnimation->setFlipped(true);
 		break;
-	case 5:
-		move({ -diagonal_speed, -diagonal_speed });
-		m_currentAnimation = &m_walkUpRight;
-		m_currentAnimation->setFlipped(true);
-		break;
 	}
 }
 
@@ -113,4 +118,9 @@ GameObject Pig::getTarget()
 void Pig::setTarget(GameObject target)
 {
 	m_target = target;
+}
+
+void Pig::setKnownScreenSize(sf::Vector2u screenSize)
+{
+	m_knownScreenSize = screenSize;
 }

@@ -12,6 +12,8 @@ public:
 
 	void resetPosition();
 
+	void setKnownScreenSize(sf::Vector2u screenSize);
+
 private:
 
 	Animation m_walkDown;
@@ -22,6 +24,8 @@ private:
 
 	Animation* m_currentAnimation;
 	//sheep member variables here
+
+	sf::Vector2u m_knownScreenSize;
 
 	enum class Direction { UP, DOWN, LEFT, RIGHT, UP_RIGHT, DOWN_RIGHT, DOWN_LEFT, UP_LEFT, NONE };
 	Direction m_direction = Direction::NONE;
